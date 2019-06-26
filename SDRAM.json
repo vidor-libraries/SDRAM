@@ -1,0 +1,64 @@
+{
+  "module":{
+    "name":"altera_avalon_new_sdram_controller",
+    "version":"18.1",
+    "parameters":[
+      {"name":"TAC"           , "def":"5.4"},
+      {"name":"TMRD"          , "def":"3"},
+      {"name":"TRCD"          , "def":"20.0"},
+      {"name":"TRFC"          , "def":"70.0"},
+      {"name":"TRP"           , "def":"20.0"},
+      {"name":"TWR"           , "def":"14.0"},
+      {"name":"casLatency"    , "def":"2"},
+      {"name":"clockRate"     , "def":"100000000"},
+      {"name":"columnWidth"   , "def":"8"},
+      {"name":"componentName" , "def":"$${FILENAME}_sdram"},
+      {"name":"dataWidth"     , "def":"16"},
+      {"name":"generateSimulationModel", "def":"false"},
+      {"name":"initNOPDelay"           , "def":"0.0"},
+      {"name":"initRefreshCommands"    , "def":"2"},
+      {"name":"masteredTristateBridgeSlave", "def":"0"},
+      {"name":"model"                , "def":"single_Micron_MT48LC4M32B2_7_chip"},
+      {"name":"numberOfBanks"        , "def":"4"},
+      {"name":"numberOfChipSelects"  , "def":"1"},
+      {"name":"pinsSharedViaTriState", "def":"false"},
+      {"name":"powerUpDelay"         , "def":"200.0"},
+      {"name":"refreshPeriod"        , "def":"31.25"},
+      {"name":"registerDataIn"       , "def":"true"},
+      {"name":"rowWidth"             , "def":"12"}
+    ]
+  },
+  "interfaces":[
+    {
+      "name":"wire",
+      "mates":["pins"],
+      "visibility":"2",
+      "signals": [
+        {"name":"addr" , "bits":"rowWidth"           , "direction":"output"},
+        {"name":"ba"   , "bits":"bankWidth"          , "direction":"output"},
+        {"name":"cas_n", "bits":"1"                  , "direction":"output"},
+        {"name":"cke"  , "bits":"1"                  , "direction":"output"},
+        {"name":"cs_n" , "bits":"numberOfChipSelects", "direction":"output"},
+        {"name":"dq"   , "bits":"dataWidth"          , "direction":"inout"},
+        {"name":"dqm"  , "bits":"dqm_width"          , "direction":"output"},
+        {"name":"ras_n", "bits":"1"                  , "direction":"output"},
+        {"name":"we_n" , "bits":"1"                  , "direction":"output"}
+      ]
+    }
+  ],
+  "hw":[
+    {
+      "interface":"avalon_slave",
+      "name":"s1",
+      "parameters":[
+        {"signal":"address"   , "name":"SPAN"     , "value":"21"},
+        {"signal":"read_data" , "name":"BIT_WIDTH", "value":"32"},
+        {"signal":"write_data", "name":"BIT_WIDTH", "value":"32"}
+      ]
+    },
+    {
+      "interface":"wire",
+      "name":"wire"
+    }
+  ]
+}
